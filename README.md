@@ -23,11 +23,19 @@ This project simulates the spread of diseases in networks using various graph mo
 
 ## Usage
 
-1. Configure the simulation parameters in `config.yaml`.
+1. Configure the simulation parameters:
+   - Open `src/config.yaml`.
+   - Modify the parameters as needed.
+
 2. Run the simulation:
-   ```bash
-   python NetworkDiseaseSpreadSimulation.py
-   ```
+   - Navigate to the `src` folder:
+     ```bash
+     cd src
+     ```
+   - Execute the script:
+     ```bash
+     python NetworkDiseaseSpreadSimulation.py
+     ```
 
 ## License
 
