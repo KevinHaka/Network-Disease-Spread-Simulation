@@ -1,0 +1,79 @@
+# Simulation configuration
+simulation:
+    time_step: 0.1 # Time step for the simulation in days
+    total_time: 100 # Total time for the simulation in days
+    monte_carlo_number: 1 # Number of Monte Carlo simulations to run
+    jobs_number: 1 # Number of parallel jobs (-1: use all available CPU cores)
+    seed:  # Seed for the random number generator (for random seed leave empty)
+    data_filename: SEIIQHRDV_WS_R.csv # Filename to save the simulation data
+
+# Network configuration
+network:
+    graph_type: WS # Type of graph (ER: Erdos-Renyi, BA: Barabasi-Albert, WS: Watts-Strogatz)
+    graph_parameters: {k: 100, p: 0.05} # Parameters for the graph
+    initial_infected_state: E # Initial state of infection
+    infected_states: [E, IA, IS, Q, H] # States that are considered infected
+    # Initial number of nodes in each state
+    initial_nodes_per_state: {S: 9900, E: 0, IA: 10, IS: 0, Q: 0, H: 0, R: 0, D: 0, V: 990} 
+    # Strategy for placing a state in the network
+    # Let it empty if strategy is not needed
+    # First element, is the state
+    # Second element, is the strategy based on centrality measures
+    # (D: Degree, B: Betweenness, C: Closeness)
+    state_placement_strategy: [] # Strategy for placing the vaccination state in the network
+    # Average number of contacts per state per day
+    daily_contacts_per_state: {S: 15, E: 15, IA: 15, IS: 5, Q: 1, H: 1, R: 15, D: 0, V: 15}
+    raw_transition_matrix:
+        # Diagonal elements represent the mean time in days staying in the same state.
+        # Use .inf for infinite time.
+        # Off-diagonal elements specify the ratio of each state when it changes.
+        S:  [.inf, 0, 0, 0, 0, 0, 0, 0, 0]
+        E:  [0, 3, 0.7, 0.3, 0, 0, 0, 0, 0] 
+        IA: [0, 0, 7, 0.4, 0, 0, 0.6, 0, 0]
+        IS: [0, 0, 0, 7, 0.5, 0.3, 0.2, 0, 0]
+        Q:  [0, 0, 0, 0, 10, 0.2, 0.8, 0, 0]
+        H:  [0, 0, 0, 0, 0, 20, 0.8, 0.2, 0]
+        R:  [1, 0, 0, 0, 0, 0, 180, 0, 0]
+        D:  [0, 0, 0, 0, 0, 0, 0, .inf, 0]
+        V:  [0, 0, 0, 0, 0, 0, 0, 0, .inf]
+    infection_matrix:
+        # Infection matrix values indicate the probability of infection between states.
+        # Only upper triangular values are important, lower triangular values are automatically calculated.
+        # Positive indicates that the first state gets infected
+        # Negative indicates that the first state infects
+        S:  [0, 0, 0.05, 0.1, 0.1, 0.1, 0, 0, 0]
+        E:  [0, 0, 0, 0, 0, 0, 0, 0, 0]
+        IA: [0, 0, 0, 0, 0, 0, 0, 0, 0]
+        IS: [0, 0, 0, 0, 0, 0, 0, 0, 0]
+        Q:  [0, 0, 0, 0, 0, 0, 0, 0, 0]
+        H:  [0, 0, 0, 0, 0, 0, 0, 0, 0]
+        R:  [0, 0, 0, 0, 0, 0, 0, 0, 0]
+        D:  [0, 0, 0, 0, 0, 0, 0, 0, 0]
+        V:  [0, 0, 0, 0, 0, 0, 0, 0, 0]
+    # Threshold for considering the infection as widespread (percentage of total population infected)
+    spreading_threshold : 0.2
+
+    # Visualization configuration
+    visualization:
+        # Colors for each state
+        color_per_state:
+                S:  '#1F77B4'
+                E:  '#FF7F0E'
+                IA: '#9467BD'
+                IS: '#D62728'
+                Q:  '#E377C2'
+                H:  '#8C564B'
+                R:  '#2CA02C'
+                D:  '#7F7F7F'
+                V: '#17BECF'
+        node_scaling_factor: 5e1  # Scaling factor for node sizes
+        background_color: '#F5F5F5' # Background color of the plot
+        figure_size: [10, 6]  # Size of the figure
+        produce_gif: True  # Set to True to produce a GIF animation, False otherwise
+        gif_filename: SEIIQHRDV_WS_R.gif  # Filename to save the animation
+        gif_duration: 10  # Duration of the animation in seconds
+        # Frames per second for the animation
+        # Use fps = 1, 2, 4, 5, 10, 20, 25, 50, 100
+        # Otherwise, the gif_duration will not be conserved
+        gif_fps: 25
+
