@@ -8,7 +8,7 @@ This project simulates the spread of diseases in networks using various graph mo
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/KevinHaka/NetworkDiseaseSpreadSimulation.git
+   git clone https://github.com/KevinHaka/Network-Disease-Spread-Simulation.git
    ```
 
 2. Navigate to the project directory:
@@ -39,4 +39,4 @@ This project simulates the spread of diseases in networks using various graph mo
 
 ## License
 
-This project is licensed under the MIT License. See the `LICENSE` file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
